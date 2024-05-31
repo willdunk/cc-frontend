@@ -20,7 +20,6 @@ const NewUserForm: React.FC = () => {
             const apiStem = process.env.REACT_APP_CC_API;
             if (apiStem !== undefined) {
                 const response = await axios.post(urlJoin(apiStem, 'users'), values);
-                console.log(response.data); // Handle the response data as needed
             } else {
                 throw new Error('API stem is undefined');
             }
