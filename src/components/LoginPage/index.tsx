@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import axios from 'axios';
 import urlJoin from 'url-join';
 import { useNavigate } from 'react-router-dom';
+import { getEnv } from '../../env';
 
 const LoginPage: React.FC = () => {
     const initialValues = {
@@ -14,15 +15,11 @@ const LoginPage: React.FC = () => {
 
     const handleSubmit = async (values: any) => {
         try {
-            const apiStem = process.env.REACT_APP_CC_API;
-            if (apiStem !== undefined) {
-                const response = await axios.post(urlJoin(apiStem, 'login'), values);
-                localStorage.setItem('accessToken', response.data.accessToken);
-                localStorage.setItem('refreshToken', response.data.refreshToken);
-                navigate("/home");
-            } else {
-                throw new Error('API stem is undefined');
-            }
+            const response = await axios.post(urlJoin(getEnv().CC_API, 'login'), values);
+            localStorage.setItem('accessToken', response.data.accessToken);
+            localStorage.setItem('refreshToken', response.data.refreshToken);
+            navigate("/home");
+
         } catch (error) {
             console.error(error); // Handle the error as needed
         }

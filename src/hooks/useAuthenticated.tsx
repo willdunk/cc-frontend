@@ -1,32 +1,20 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import urlJoin from 'url-join';
+import { useQuery } from '@tanstack/react-query';
+import { getUser } from '../queries/getUser';
+import { getUserSchema } from '../schemas/getUserSchema';
+import * as yup from 'yup';
 
-export const useAuthenticated = (): { user: any; isLoading: boolean } => {
-    const [user, setUser] = useState<any>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+type AuthenticationStatus = {
+    user: yup.InferType<typeof getUserSchema> | undefined;
+    isLoading: boolean;
+    isError: boolean;
+}
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const apiStem = process.env.REACT_APP_CC_API;
-                if (apiStem !== undefined) {
-                    const response = await axios.get(urlJoin(apiStem, '/users'), { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } });
-                    setUser(response.data);
-                }
-            }
-            catch (error) {
-                // Handle authentication failure
-                // You would want to attempt to refresh using the refresh token
-                // If that fails, then you should truly fail
-                setUser(null);
-            } finally {
-                setIsLoading(false);
-            }
-        };
+export const useAuthenticated = (): AuthenticationStatus => {
+    const { data, isFetching, isError } = useQuery({ queryKey: ['user'], queryFn: getUser });
 
-        fetchUser();
-    }, []);
-
-    return { user, isLoading };
+    return {
+        user: data,
+        isLoading: isFetching,
+        isError: isError,
+    };
 };

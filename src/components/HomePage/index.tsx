@@ -1,16 +1,17 @@
 import { FC, useEffect } from 'react';
 import { useAuthenticated } from '../../hooks/useAuthenticated';
 import { useNavigate } from 'react-router-dom';
+import { isDefined } from '../../utils/ts/isDefined';
 
 const HomePage: FC = () => {
-    const { user, isLoading } = useAuthenticated();
+    const { user, isLoading, isError } = useAuthenticated();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!user && !isLoading) {
+        if (isError) {
             navigate('/');
         }
-    }, [navigate, user, isLoading])
+    }, [navigate, user, isLoading, isError])
 
     if (isLoading) {
         return <h1>Loading...</h1>
@@ -18,7 +19,7 @@ const HomePage: FC = () => {
     return (
         <div>
             <h1>Hello</h1>
-            {typeof user === 'object' ? Object.entries(user).map(([key, value]) => (<p key={key}>{`${key}: ${value}`}</p>)) : null}
+            {isDefined(user) ? <p>Welcome, {user.email}</p> : null}
         </div>
     );
 };
