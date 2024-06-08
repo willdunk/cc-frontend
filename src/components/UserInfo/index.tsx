@@ -3,7 +3,7 @@ import { useAuthenticated } from '../../hooks/useAuthenticated';
 import { useNavigate } from 'react-router-dom';
 import { isDefined } from '../../utils/ts/isDefined';
 
-const HomePage: FC = () => {
+const UserInfo: FC = () => {
     const { user, isLoading, isError } = useAuthenticated();
     const navigate = useNavigate();
 
@@ -24,4 +24,4 @@ const HomePage: FC = () => {
     );
 };
 
-export default HomePage;
+export default UserInfo;
