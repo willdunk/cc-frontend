@@ -4,17 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { isDefined } from '../../utils/ts/isDefined';
 
 const UserInfo: FC = () => {
-    const { user, isLoading, isError } = useAuthenticated();
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (isError) {
-            navigate('/');
-        }
-    }, [navigate, user, isLoading, isError])
+    const { user, isLoading } = useAuthenticated();
 
     if (isLoading) {
-        return <h1>Loading...</h1>
+        return <h1>Loading...</h1>;
     }
     return (
         <div>

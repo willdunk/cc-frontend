@@ -22,7 +22,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ anchorEl, open, onClose }) => {
     const handleLogout = async () => {
         await mutateAsync();
         onClose();
-        navigate('/');
+        navigate('/login');
     };
 
     return (
