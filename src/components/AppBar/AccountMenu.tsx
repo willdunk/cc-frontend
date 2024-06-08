@@ -8,11 +8,12 @@ import { postLogout } from '../../mutations/postLogout';
 import { useNavigate } from 'react-router-dom';
 
 type AccountMenuProps = {
+    anchorEl: null | HTMLElement;
     open: boolean;
     onClose: () => void;
 };
 
-const AccountMenu: FC<AccountMenuProps> = ({ open, onClose }) => {
+const AccountMenu: FC<AccountMenuProps> = ({ anchorEl, open, onClose }) => {
     const navigate = useNavigate();
     const { user, isLoading } = useAuthenticated();
 
@@ -26,9 +27,10 @@ const AccountMenu: FC<AccountMenuProps> = ({ open, onClose }) => {
 
     return (
         <Menu
+            anchorEl={anchorEl}
             anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: 'center',
+                horizontal: 'center',
             }}
             transformOrigin={{
                 vertical: 'top',

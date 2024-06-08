@@ -8,10 +8,14 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import AccountMenu from './AccountMenu';
 
 const AppBar: FC = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+    const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
 
     const handleMenuClose = () => {
-        setIsMenuOpen(false);
+        setAnchorEl(null);
     };
 
     return (
@@ -24,15 +28,14 @@ const AppBar: FC = () => {
                     sx={{ width: '100%' }}
                 >
                     <Typography variant="h6">Commission Clarity</Typography>
-                    <IconButton
-                        size="large"
-                        edge="end"
-                        onClick={() => setIsMenuOpen(true)}
-                        color="inherit"
-                    >
+                    <IconButton size="large" edge="end" onClick={handleMenuOpen} color="inherit">
                         <AccountCircle />
                     </IconButton>
-                    <AccountMenu open={isMenuOpen} onClose={handleMenuClose} />
+                    <AccountMenu
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={handleMenuClose}
+                    />
                 </Stack>
             </Toolbar>
         </MuiAppBar>
