@@ -21,7 +21,9 @@ function App() {
                     <Route path="/login" element={<ReverseProtected />}>
                         <Route index element={<Login />} />
                     </Route>
-                    <Route path="/new" element={<NewUser />} />
+                    <Route path="/new" element={<ReverseProtected />}>
+                        <Route index element={<NewUser />} />
+                    </Route>
                 </Routes>
             </Router>
         </QueryClientProvider>

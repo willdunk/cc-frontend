@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import Or from './Or';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email is required'),
@@ -20,6 +21,11 @@ const initialValues = {
 
 const Form: React.FC = () => {
     const navigate = useNavigate();
+
+    const handleGoToNewUser = () => {
+        navigate('/new');
+    };
+
     const { mutateAsync } = useMutation({ mutationFn: postLogin });
 
     const formik = useFormik({
@@ -61,6 +67,15 @@ const Form: React.FC = () => {
                 />
                 <Button type="submit" variant="contained" color="primary" size="large">
                     Login
+                </Button>
+                <Or />
+                <Button
+                    onClick={handleGoToNewUser}
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                >
+                    Start Listing
                 </Button>
             </Stack>
         </form>
