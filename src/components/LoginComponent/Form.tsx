@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import Or from './Or';
+import Or from '../Or';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email is required'),

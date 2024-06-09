@@ -1,8 +1,8 @@
-import { FC } from "react";
-import NewUserForm from "../components/NewUserForm";
+import { FC } from 'react';
+import NewUserComponent from '../components/NewUserComponent';
 
 const NewUser: FC = () => {
-    return (<NewUserForm />);
+    return <NewUserComponent />;
 };
 
 export default NewUser;
