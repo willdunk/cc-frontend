@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { CssBaseline } from '@mui/material';
 import Protected from './pages/Protected';
 import ReverseProtected from './pages/ReverseProtected';
+import NewListing from './pages/NewListing';
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Protected />}>
                         <Route path="/home" element={<Home />} />
+                        <Route path="/new/listing" element={<NewListing />} />
                     </Route>
                     <Route path="/login" element={<ReverseProtected />}>
                         <Route index element={<Login />} />
