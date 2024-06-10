@@ -1,13 +1,6 @@
 import { FC } from 'react';
-import UserInfo from '../components/UserInfo';
-import Container from '../components/Container';
+import HomeComponent from '../components/HomeComponent';
 
-const Home: FC = () => {
-    return (
-        <Container>
-            <UserInfo />
-        </Container>
-    );
-};
+const Home: FC = () => <HomeComponent />;
 
 export default Home;
