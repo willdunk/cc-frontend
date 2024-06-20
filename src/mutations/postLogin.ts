@@ -1,8 +1,7 @@
-import axios from "axios";
-import { getEnv } from "../env";
-import urlJoin from "url-join";
-import { POST_LOGIN } from "../constants/endpoints";
-import { postLoginSchema } from "../schemas/postLoginSchema";
+import axios from 'axios';
+import { getEnv } from '../env';
+import urlJoin from 'url-join';
+import { POST_LOGIN } from '../constants/endpoints';
 
 type PostLoginRequestBody = {
     email: string;
@@ -10,9 +9,8 @@ type PostLoginRequestBody = {
 };
 
 export const postLogin = async (data: PostLoginRequestBody) => {
-    const response = await axios.post(urlJoin(getEnv().CC_API, POST_LOGIN), data);
-    const validatedData = await postLoginSchema.validate(response.data);
-    localStorage.setItem('accessToken', validatedData.accessToken);
-    localStorage.setItem('refreshToken', validatedData.refreshToken);
-    return validatedData;
+    const response = await axios.post(urlJoin(getEnv().CC_API, POST_LOGIN), data, {
+        withCredentials: true,
+    });
+    return response.data;
 };
