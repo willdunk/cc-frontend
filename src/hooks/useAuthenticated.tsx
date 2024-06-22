@@ -14,6 +14,7 @@ export const useAuthenticated = (enabled?: boolean): AuthenticationStatus => {
         queryKey: ['autheticatedUser'],
         queryFn: getUser,
         enabled,
+        retry: false,
     });
 
     return {

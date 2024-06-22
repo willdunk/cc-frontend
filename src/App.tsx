@@ -7,7 +7,6 @@ import { CssBaseline } from '@mui/material';
 import Protected from './pages/Protected';
 import ReverseProtected from './pages/ReverseProtected';
 import NewListing from './pages/NewListing';
-import ListingComponent from './components/ListingComponent';
 import UserComponent from './components/UserComponent';
 
 const queryClient = new QueryClient();
@@ -33,7 +32,6 @@ function App() {
                     </Route>
                     {/* Below routes do not care about login status, but also CAN take it into account */}
                     <Route path="/user/:userId" element={<UserComponent />} />
-                    <Route path="/user/:userId/:listingId" element={<ListingComponent />} />
                 </Routes>
             </Router>
         </QueryClientProvider>
