@@ -7,10 +7,14 @@ type AuthenticationStatus = {
     user: yup.InferType<typeof getUserSchema> | undefined;
     isLoading: boolean;
     isError: boolean;
-}
+};
 
-export const useAuthenticated = (): AuthenticationStatus => {
-    const { data, isFetching, isError } = useQuery({ queryKey: ['user'], queryFn: getUser });
+export const useAuthenticated = (enabled?: boolean): AuthenticationStatus => {
+    const { data, isFetching, isError } = useQuery({
+        queryKey: ['autheticatedUser'],
+        queryFn: getUser,
+        enabled,
+    });
 
     return {
         user: data,

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useAuthenticated } from '../../hooks/useAuthenticated';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
@@ -8,9 +8,35 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import HomeIcon from '@mui/icons-material/Home';
 import BrokerLicense from './BrokerLicense';
+import { useQuery } from '@tanstack/react-query';
+import { getUserFromId } from '../../queries/getUserFromId';
 
-const UserInfo: FC = () => {
-    const { user, isLoading } = useAuthenticated();
+type UserInfoProps = {
+    userId?: string;
+};
+
+const UserInfo: FC<UserInfoProps> = ({ userId }) => {
+    // If userId is defined, we are looking at someone else's profile, therefore we don't need to check if the user is authenticated
+    const { user: authenticatedUser, isLoading: isAuthenticatedUserLoading } = useAuthenticated(
+        !Boolean(userId),
+    );
+
+    const {
+        data: otherUser,
+        isFetching,
+        isError,
+    } = useQuery({
+        queryKey: ['user', userId],
+        queryFn: getUserFromId(userId ?? ''),
+        enabled: Boolean(userId),
+    });
+
+    const { user, isLoading } = useMemo(() => {
+        if (Boolean(userId)) {
+            return { user: otherUser, isLoading: isFetching };
+        }
+        return { user: authenticatedUser, isLoading: isAuthenticatedUserLoading };
+    }, [authenticatedUser, otherUser, isAuthenticatedUserLoading, isFetching, userId]);
 
     return (
         <Container fixed sx={{ display: 'flex', justifyContent: 'center' }}>
