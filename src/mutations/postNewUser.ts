@@ -13,7 +13,8 @@ type PostNewUserRequestBody = {
 };
 
 export const postNewUser = async (data: PostNewUserRequestBody) => {
-    const response = await axios.post(urlJoin(getEnv().CC_API, POST_NEW_USER), data);
-    const validatedData = await postNewUserSchema.validate(response.data);
-    return validatedData;
+    const response = await axios.post(urlJoin(getEnv().CC_API, POST_NEW_USER), data, {
+        withCredentials: true,
+    });
+    return await postNewUserSchema.validate(response.data);
 };

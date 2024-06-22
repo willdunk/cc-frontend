@@ -15,6 +15,6 @@ export type PostNewListingRequestBody = {
 
 export const postNewListing = async (data: PostNewListingRequestBody) => {
     return await axios.post(urlJoin(getEnv().CC_API, POST_NEW_LISTING), data, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+        withCredentials: true,
     });
 };
